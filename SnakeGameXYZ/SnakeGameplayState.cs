@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shared;
 using SnakeGame.Struct;
 
 namespace SnakeGame
@@ -12,16 +14,18 @@ namespace SnakeGame
     {
         public List<Cell> SnakeBody = new List<Cell>();
         private float timeToMove;
+        public int fieldWidth;
+        public int fieldHeight;
+        const char snakeIcon = '■';
         public SnakeDir currentDir { get; private set; } = SnakeDir.Right;
-
-        public const float FPS = 1/5;
+        public const float FPS = 0.75f;
 
         private Dictionary<Cell, SnakeDir> DirToCell = new()
         {
-            {new Cell(0,1), SnakeDir.Right},
-            {new Cell(0,-1), SnakeDir.Left},
-            {new Cell(1,0), SnakeDir.Up},
-            {new Cell(-1,0), SnakeDir.Down}
+            {new Cell(0,1), SnakeDir.Down},
+            {new Cell(0,-1), SnakeDir.Up},
+            {new Cell(-1,0), SnakeDir.Left},
+            {new Cell(1,0), SnakeDir.Right}
         };
         public enum SnakeDir
         {
@@ -41,13 +45,16 @@ namespace SnakeGame
             {
                 if (item.Value == currentDir) result= result.Sum(item.Key);
             }
+            //return new Cell(result.X, -result.Y);
             return result;
         }
         public override void Reset()
         {
             SnakeBody.Clear();
+            var middleY = fieldHeight/2;
+            var middleX = fieldWidth/2;
             currentDir = SnakeDir.Right;
-            SnakeBody.Add(new Cell(0,0));
+            SnakeBody.Add(new Cell(middleX, middleY));
             timeToMove = 0;
         }
 
@@ -60,7 +67,6 @@ namespace SnakeGame
             var head = SnakeBody.First();
             var nextCell = ShiftTo();
             SnakeBody = AddHeadToBody(nextCell);
-            Console.WriteLine($"XY:{SnakeBody.First().X},{SnakeBody.First().Y}");
         }
 
         private List<Cell> AddHeadToBody(Cell nextCell)
@@ -69,6 +75,14 @@ namespace SnakeGame
             SnakeBody.Remove(SnakeBody.Last());
             NewSnakeBody.AddRange(SnakeBody);
             return NewSnakeBody;
+        }
+
+        public override void Draw(ConsoleRenderer renderer)
+        {
+         foreach(var cell in SnakeBody)
+            {
+                renderer.SetPixel(cell.X, cell.Y, snakeIcon, 0);
+            }   
         }
     }
     

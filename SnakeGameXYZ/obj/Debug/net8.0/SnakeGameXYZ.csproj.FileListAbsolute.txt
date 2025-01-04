@@ -12,3 +12,4 @@ C:\Users\boyko\source\repos\SnakeGameXYZ\SnakeGameXYZ\obj\Debug\net8.0\refint\Sn
 C:\Users\boyko\source\repos\SnakeGameXYZ\SnakeGameXYZ\obj\Debug\net8.0\SnakeGameXYZ.pdb
 C:\Users\boyko\source\repos\SnakeGameXYZ\SnakeGameXYZ\obj\Debug\net8.0\SnakeGameXYZ.genruntimeconfig.cache
 C:\Users\boyko\source\repos\SnakeGameXYZ\SnakeGameXYZ\obj\Debug\net8.0\ref\SnakeGameXYZ.dll
+C:\Users\boyko\source\repos\SnakeGameXYZ\SnakeGameXYZ\obj\Debug\net8.0\SnakeGameXYZ.sourcelink.json
